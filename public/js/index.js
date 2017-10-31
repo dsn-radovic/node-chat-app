@@ -17,9 +17,10 @@ socket.on('disconnect', function() {
 //     console.log("New email", email);
 // })
 socket.on('newMessage', function(data) {
+    var formattedTime = moment(data.createdAt).format('h:mm a');
     console.log('newMessage', data);
     var li = $('<li></li>');
-    li.text(`${data.from}: ${data.text}`);
+    li.text(`${data.from} ${formattedTime}: ${data.text}`);
 
     $('#messages').append(li);
 })
