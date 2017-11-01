@@ -15,21 +15,34 @@ function scrollToBottom () {
     }
 }
 socket.on('connect', function() {
-    console.log("Connected to server");
-
-    // socket.emit('createMessage', {
-    //     from: "ex2@example.com",
-    //     text: "asdksad"
-    // })
+    var params = $.deparam(window.location.search);
+   
+    socket.emit('join', params, function(err) {
+       
+        if(err){
+            alert(err); 
+            window.location.href = "/";
+        } else {
+            console.log("no error");
+        }
+        
+    })
 })
 
 socket.on('disconnect', function() {
     console.log('Disconected');
 })
 
-// socket.on('newEmail', function(email) {
-//     console.log("New email", email);
-// })
+socket.on('updateUserList', function(users) {
+    var ol = $('<ol></ol>');
+
+    users.forEach(function (user) {
+        ol.append($('<li></li>').text(user));
+    })
+
+    $('#users').html(ol);
+})
+
 socket.on('newMessage', function(data) {
     var formattedTime = moment(data.createdAt).format('h:mm a');
     var template = $('#message-template').html();
