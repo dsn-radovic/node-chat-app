@@ -6,18 +6,29 @@
 }]
 
 var users = [];
-
-var addUser = (id, name, room) => {
-    users.push({id, name, room});
-}
+//var rooms = [];
 
 class Users {
     constructor () {
         this.users = [];
+        //this.rooms = [];
     }
     addUser (id, name, room){
         var user = {id, name, room};
         this.users.push(user);
+        // var exists = false;
+
+        // for(var i = 0; i < this.rooms.length; i++) {
+        //     if(user.room === this.rooms[i]){
+        //         exists = true;
+        //     }
+        // }
+        // if(!exists) {
+        //     this.rooms.push(user.room);
+        //     console.log(this.rooms);
+        // }else {
+        //     exists = false;
+        // }
         return user;
     }
     removeUser(id) {

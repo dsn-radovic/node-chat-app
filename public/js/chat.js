@@ -43,6 +43,7 @@ socket.on('updateUserList', function(users) {
     $('#users').html(ol);
 })
 
+
 socket.on('newMessage', function(data) {
     var formattedTime = moment(data.createdAt).format('h:mm a');
     var template = $('#message-template').html();
