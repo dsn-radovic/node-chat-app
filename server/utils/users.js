@@ -6,29 +6,19 @@
 }]
 
 var users = [];
-//var rooms = [];
+const {roomControl} = require('./room-control');
+
 
 class Users {
     constructor () {
         this.users = [];
-        //this.rooms = [];
     }
     addUser (id, name, room){
         var user = {id, name, room};
         this.users.push(user);
-        // var exists = false;
-
-        // for(var i = 0; i < this.rooms.length; i++) {
-        //     if(user.room === this.rooms[i]){
-        //         exists = true;
-        //     }
-        // }
-        // if(!exists) {
-        //     this.rooms.push(user.room);
-        //     console.log(this.rooms);
-        // }else {
-        //     exists = false;
-        // }
+        
+        roomControl.addRoom(user.room);
+        
         return user;
     }
     removeUser(id) {

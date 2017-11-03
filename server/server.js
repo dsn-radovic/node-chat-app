@@ -6,10 +6,11 @@ const http = require('http');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
+const {MongoClient} = require('mongodb');
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
-
+var fs = require('fs');
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -71,7 +72,20 @@ io.on('connection', (socket) => {
         }
     })
 })
-
-server.listen(3000, () => {
+app.get('/rooms', (req, res) => {
+    MongoClient.connect('mongodb://localhost:27017/Rooms', (err, db) => {
+        if(err){
+            return console.log('Unable to connect to database.');
+        }
+        console.log('Connected!');
+    
+        db.collection('Rooms').find().toArray().then((rooms) => {
+            //console.log(rooms);
+        res.send(rooms);
+        })
+    });
+})
+server.listen(port, () => {
     console.log(`Server started on ${port}`);
 })
+//module.exports = {app};
